@@ -1,0 +1,114 @@
+---
+import BgVideoDark from "../assets/video/teclado.mp4";
+import BgVideo from "../assets/video/bg-light-1.mp4";
+import "./styles/Fonts.css";
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta
+			name="description"
+			content="Portafolio de Adrian Tafoya, desarrollador web y de software. Explora mis proyectos destacados."
+		/>
+		<title>Adrian Tafoya | Portafolio</title>
+		<script src="../scripts/toggle_theme.js"></script>
+	</head>
+	<body
+		class="text-neutral-950 dark:text-neutral-100 font-mono relative bg-slate-100 dark:bg-slate-950"
+	>
+		<video
+			id="bg-video"
+			muted
+			autoplay
+			loop
+			class="h-dvh hidden dark:md:block z-10 object-cover w-full absolute top-0 left-0"
+			src={BgVideoDark}></video>
+		<video
+			id="bg-video"
+			muted
+			autoplay
+			loop
+			class="h-dvh hidden md:block dark:md:hidden z-10 object-cover w-full absolute top-0 left-0"
+			src={BgVideo}></video>
+		<div
+			id="main-container"
+			class="body-content h-dvh w-full z-[100] bg-slate-100 bg-opacity-85 dark:bg-slate-950 dark:bg-opacity-75 absolute top-0 left-0"
+		>
+			<slot />
+		</div>
+	</body>
+</html>
+
+<script>
+	const video = document.getElementById("bg-video") as HTMLVideoElement;
+	if (video) {
+		video.playbackRate = 0.5;
+	}
+
+	document.body.focus();
+</script>
+
+<style is:global>
+	* {
+		scroll-behavior: smooth;
+	}
+	html,
+	body {
+		height: 100%;
+		width: 100dvw;
+		overflow: hidden;
+		margin: 0;
+	}
+
+	.body-content {
+		overflow: hidden;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		grid-template-areas:
+			"main"
+			"main"
+			"header";
+		backdrop-filter: blur(12px);
+	}
+
+	/* Modo claro */
+	*::-webkit-scrollbar {
+		width: 14px;
+		background-color: rgba(100, 100, 100, 0.3);
+	}
+	*::-webkit-scrollbar-thumb {
+		background-color: rgba(100, 100, 100, 0.8);
+	}
+	*::-webkit-scrollbar-thumb:hover {
+		background-color: rgba(120, 120, 120, 1);
+	}
+	*::-webkit-scrollbar-thumb:active {
+		background-color: #936ed8;
+	}
+
+	/* Default */
+	*::-webkit-scrollbar-track-piece:start {
+		background: transparent;
+	}
+
+	*::-webkit-scrollbar-track-piece:end {
+		background: transparent;
+	}
+
+	header {
+		grid-area: header;
+	}
+	aside {
+		grid-area: aside;
+	}
+	main {
+		width: 100%;
+		grid-area: main;
+	}
+</style>
